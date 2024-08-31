@@ -1,62 +1,48 @@
 import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import {
-  faGithub,
-  faLinkedin,
-  faMedium,
-  faStackOverflow,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack } from "@chakra-ui/react";
 
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: hello@example.com",
+    url: "mailto: buumu8@gmail.com",
   },
   {
     icon: faGithub,
-    url: "https://github.com",
+    url: "https://github.com/buumu8",
   },
   {
     icon: faLinkedin,
-    url: "https://www.linkedin.com",
-  },
-  {
-    icon: faMedium,
-    url: "https://medium.com",
-  },
-  {
-    icon: faStackOverflow,
-    url: "https://stackoverflow.com",
+    url: "https://www.linkedin.com/in/jettapol-tuetrakul-028a07317",
   },
 ];
 
 const Header = () => {
+  const headerRef = useRef(null);
+  useEffect(() => {
+    let prevScrollPosition = window.scrollY;
 
-  const headerRef = useRef(null); 
-  useEffect(() => { 
-    let prevScrollPosition = window.scrollY; 
-  
-    const handleScroll = () => { 
-      const currentScrollPosition = window.scrollY; 
-      const headerElement = headerRef.current; 
-      if (!headerElement) { 
-        return; 
-      } 
-      if (prevScrollPosition > currentScrollPosition) { 
-        headerElement.style.transform = "translateY(0px)"; 
-      } else { 
-        headerElement.style.transform = "translateY(-200px)"; 
-      } 
-      prevScrollPosition = currentScrollPosition; 
-    } 
-    window.addEventListener('scroll', handleScroll) 
-  
-    return () => { 
-      window.removeEventListener('scroll', handleScroll) 
-    } 
-  }, []); 
+    const handleScroll = () => {
+      const currentScrollPosition = window.scrollY;
+      const headerElement = headerRef.current;
+      if (!headerElement) {
+        return;
+      }
+      if (prevScrollPosition > currentScrollPosition) {
+        headerElement.style.transform = "translateY(0px)";
+      } else {
+        headerElement.style.transform = "translateY(-200px)";
+      }
+      prevScrollPosition = currentScrollPosition;
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
@@ -83,28 +69,29 @@ const Header = () => {
       ref={headerRef}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
-        <HStack
-          px={16}
-          py={4}
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <HStack px={16} py={4} justifyContent="space-between" alignItems="center">
           <nav>
             {/* Add social media links based on the `socials` data */}
             <HStack spacing={6}>
-              {
-                socials.map((social) =>
+              {socials.map((social) => (
                 <a href={social.url} key={social.url}>
                   <FontAwesomeIcon icon={social.icon} size="2x" />
-                </a>)
-              }
+                </a>
+              ))}
             </HStack>
           </nav>
           <nav>
             <HStack spacing={8}>
               {/* Add links to Projects and Contact me section */}
-              <a href="#projects" onClick={handleClick("projects")}>Projects</a>
-              <a href="#contactme" onClick={handleClick("contactme")}>Contact Me</a>
+              <a href="#projects" onClick={handleClick("projects")}>
+                Projects
+              </a>
+              <a href="#blog" onClick={handleClick("blog")}>
+                Blog
+              </a>
+              <a href="#contactme" onClick={handleClick("contactme")}>
+                Contact Me
+              </a>
             </HStack>
           </nav>
         </HStack>
